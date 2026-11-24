@@ -194,3 +194,54 @@ class FamilyMember {
   });
 
 }
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+class ApiFamilyMember {
+  final int id;
+  final String nom;
+  final String postnom;
+  final String prenom;
+  final String lieuNaissance;
+  final String dateNaissance;
+  final String parente;
+  final String? imageUrl;
+
+  const ApiFamilyMember({
+    required this.id,
+    required this.nom,
+    required this.postnom,
+    required this.prenom,
+    required this.lieuNaissance,
+    required this.dateNaissance,
+    required this.parente,
+    this.imageUrl,
+  });
+
+  String get fullName => '$prenom $postnom $nom'.trim();
+
+  factory ApiFamilyMember.fromJson(Map<String, dynamic> json) {
+    return ApiFamilyMember(
+      id: int.tryParse(json['id'].toString()) ?? 0,
+      nom: json['nom']?.toString() ?? '',
+      postnom: json['postnom']?.toString() ?? '',
+      prenom: json['prenom']?.toString() ?? '',
+      lieuNaissance: json['lieu_naissance']?.toString() ?? '',
+      dateNaissance: json['date_naissance']?.toString() ?? '',
+      parente: json['parente']?.toString() ?? '',
+      imageUrl: json['image_url']?.toString(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'nom': nom,
+      'postnom': postnom,
+      'prenom': prenom,
+      'lieu_naissance': lieuNaissance,
+      'date_naissance': dateNaissance,
+      'parente': parente,
+    };
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////
